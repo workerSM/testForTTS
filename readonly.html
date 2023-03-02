@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>장비타입: <input type="text" name="DTYPE" placeholder="" value="TTS" readonly></li>
+        <li>장비이름: <input type="text" name="DNAME" placeholder="" value="톡톡스틱" readonly></li>
+        <li>장비버전: <input type="text" name="DVERSION" placeholder="장비버전을 입력하세요" value="1.00" readonly></li>
+    </ul>
+    <hr>
+    <form action="/examples/media/action_target.php" method="get">
+        이름 : <input type="text" name="st_name"><br>
+        학과 : <input type="text" name="department" value="컴퓨터공학과" disabled><br>
+        <input type="submit">
+    </form>
+    <script>
+        let inputReadonly = document.querySelectorAll('input');
+        
+        for(let i = 0; i < inputReadonly.length; i++){
+            if(inputReadonly[i].attributes.readonly ){
+                inputReadonly[i].style.backgroundColor = 'lightgray';
+                inputReadonly[i].style.color = 'gray';
+            }
+        }
+       
+        // if(inputReadonly.readOnly = true){
+        //     let attrReadonly = inputReadonly.readOnly;
+        //     console.log(attrReadonly);
+        //     attrReadonly.style.border = '1px solid red';
+        // }
+
+        // 230220 작성됨. 
+        // JS로 readonly를 조절함
+        // css로 readonly하는게 더 쉬움 
+        // css 는 input:read-only {}
+
+        
+    </script>
+</body>
+</html>

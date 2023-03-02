@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 예시코드 */
+        /* https://gist.github.com/dylancwood/7368914 */
+        /* ul.tree, ul.tree ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        } 
+        ul.tree ul {
+            margin-left: 10px;
+
+
+        }
+        ul.tree li {
+            margin: 0;
+            padding: 0 7px;
+            line-height: 20px;
+            color: #369;
+            font-weight: bold;
+            border-left:1px solid rgb(100,100,100);
+
+        }
+        ul.tree li:last-child {
+            border-left:none;
+        }
+        ul.tree li:before {
+            position:relative;
+            top:-0.3em;
+            height:1em;
+            width:12px;
+            color:white;
+            border-bottom:1px solid rgb(100,100,100);
+            content:"";
+            display:inline-block;
+            left:-7px;
+        }
+        ul.tree li:last-child:before {
+            border-left:1px solid rgb(100,100,100);   
+        } */
+
+        ul,li{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+       .column-box-container{
+            /* display: block; */
+            display: inline;
+            height: 20px;
+            border-right: 3px solid skyblue;
+        }
+       .row-box-container{
+            display: flex;
+            border-top: 3px solid skyblue;
+            width: fit-content;
+        }
+       .box-container{
+            max-width: 100px;
+            text-align: center;
+            margin: 0 5px;
+        }
+       .box-head-line{
+            display: inline;
+            height: 20px;
+            border-right: 3px solid skyblue;
+        }
+       .box-text{
+            padding: 5px;
+            border: 3px solid skyblue;
+        }
+
+
+        /* 새로운방식 */
+        /* https://codepen.io/dabeng/pen/zBNbqV */
+        #chart-container {
+            font-family: Arial;
+            height: 420px;
+            border: 2px dashed #aaa;
+            border-radius: 5px;
+            overflow: auto;
+            text-align: center;
+        }
+
+        .orgchart {
+            background: #fff; 
+        }
+        .orgchart td.left, .orgchart td.right, .orgchart td.top {
+            border-color: #aaa;
+        }
+        .orgchart td>.down {
+            background-color: #aaa;
+        }
+        .orgchart .middle-level .title {
+            background-color: #006699;
+        }
+        .orgchart .middle-level .content {
+            border-color: #006699;
+        }
+        .orgchart .product-dept .title {
+            background-color: #009933;
+        }
+        .orgchart .product-dept .content {
+            border-color: #009933;
+        }
+        .orgchart .rd-dept .title {
+            background-color: #993366;
+        }
+        .orgchart .rd-dept .content {
+            border-color: #993366;
+        }
+        .orgchart .pipeline1 .title {
+            background-color: #996633;
+        }
+        .orgchart .pipeline1 .content {
+            border-color: #996633;
+        }
+        .orgchart .frontend1 .title {
+            background-color: #cc0066;
+        }
+        .orgchart .frontend1 .content {
+            border-color: #cc0066;
+        }
+
+        #github-link {
+            position: fixed;
+            top: 0px;
+            right: 10px;
+            font-size: 3em;
+        }
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- 예시코드 -->
+    <!-- <ul class="tree">
+        <li>Animals
+         <ul>
+          <li>Birds</li>
+          <li>Mammals
+           <ul>
+            <li>Elephant</li>
+            <li class="last">Mouse</li>
+           </ul>
+          </li>
+          <li class="last">Reptiles</li>
+         </ul>
+        </li>
+        <li class="last">Plants
+         <ul>
+          <li>Flowers
+           <ul>
+            <li>Rose</li>
+            <li class="last">Tulip</li>
+           </ul>
+          </li>
+          <li class="last">Trees</li>
+         </ul>
+        </li>
+    </ul> -->
+
+
+<ul>
+    <li class="row-box-container">
+        <ul class="box-container">
+            <li class="box-head-line"></li>
+            <li class="box-text">1번 지역</li>
+        </ul>
+        <ul class="box-container">
+            <li class="box-head-line"></li>
+            <li class="box-text">1번 지역</li>
+        </ul>
+        <ul>
+            <li class="box-container">
+                <ul>
+                    <li class="box-head-line"></li>
+                    <li class="box-text">1번 지역!!</li>
+    
+                    <li class="box-head-line"></li>
+    
+                    <li class="row-box-container">
+                        <ul class="box-container">
+                            <li class="box-head-line"></li>
+                            <li class="box-text">1번 지역~!</li>
+
+                            <li class="box-head-line"></li>
+
+                            <li class="box-container">
+                                <ul>
+                                    <li class="box-head-line"></li>
+                                    <li class="box-text">1번 지역~</li>
+                    
+                                    <li class="box-head-line"></li>
+                    
+                                    <li class="row-box-container">
+                                        <ul class="box-container">
+                                            <li class="box-head-line"></li>
+                                            <li class="box-text">1번 지역~~</li>
+                
+                                            <li class="box-head-line"></li>
+                                        </ul>
+                                        <ul class="box-container">
+                                            <li class="box-head-line"></li>
+                                            <li class="box-text">1번 지역~~</li>
+                                        </ul>
+                                        <ul class="box-container">
+                                            <li class="box-head-line"></li>
+                                            <li class="box-text">1번 지역~~</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="box-container">
+                            <li class="box-head-line"></li>
+                            <li class="box-text">1번 지역</li>
+                        </ul>
+                        <ul class="box-container">
+                            <li class="box-head-line"></li>
+                            <li class="box-text">1번 지역</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<hr>
+    <ul class="row-box-container">
+        <li class="box-container">
+            <ul>
+                <li class="box-head-line"></li>
+                <li class="box-text">1번 지역</li>
+            </ul>
+        </li>
+       <li class="box-container">
+            <ul>
+                <li class="box-head-line"></li>
+                <li class="box-text">1번 지역</li>
+            </ul>          
+       </li>
+        <li class="box-container">
+            <ul>
+                <li class="box-head-line"></li>
+                <li class="box-text">1번 지역</li>
+            </ul>
+        </li>
+        <li class="box-container">
+            <ul>
+                <li class="box-head-line"></li>
+                <li class="box-text">1번 지역</li>
+            </ul>
+        </li>
+        <li class="box-container">
+            <ul>
+                <li class="box-head-line"></li>
+                <li class="box-text">1번 지역</li>
+
+                <li class="box-head-line"></li>
+
+                <li class="row-box-container">
+                    <ul class="box-container">
+                        <li class="box-head-line"></li>
+                        <li class="box-text">1번 지역</li>
+                    </ul>
+                    <ul class="box-container">
+                        <li class="box-head-line"></li>
+                        <li class="box-text">1번 지역</li>
+                    </ul>
+                    <ul class="box-container">
+                        <li class="box-head-line"></li>
+                        <li class="box-text">1번 지역</li>
+                    </ul><ul class="box-container">
+                        <li class="box-head-line"></li>
+                        <li class="box-text">1번 지역</li>
+                    </ul>
+                    <ul class="box-container">
+                        <li class="box-head-line"></li>
+                        <li class="box-text">1번 지역</li>
+                    </ul><ul class="box-container">
+                        <li class="box-head-line"></li>
+                        <li class="box-text">1번 지역</li>
+                    </ul><ul class="box-container">
+                        <li class="box-head-line"></li>
+                        <li class="box-text">1번 지역</li>
+                    </ul>
+                </li>
+
+            </ul>
+           
+            
+            
+        </li>
+    </ul>
+    <hr>
+    <h3>새로운방식</h3>
+    <div id="chart-container"></div>
+
+    <a id="github-link" href="https://github.com/dabeng/OrgChart" target="_blank"><i class="fa fa-github-square"></i></a>
+   
+    <script>
+        let rowBoxContainer = document.querySelectorAll("li.row-box-container");
+        let underUl = document.getElementsByTagName('ul');
+        
+
+        console.log(rowBoxContainer[0].childElementCount);
+        if(rowBoxContainer[0].childElementCount == 1){
+            rowBoxContainer[0].style.borderTop = "0px solid skyblue";
+        }else if(rowBoxContainer[0].childElementCount > 1){
+            rowBoxContainer[0].style.borderTop = "3px solid skyblue";
+        }
+    </script>
+    <script>
+        //새로운 방식
+        'use strict';
+
+        (function($){
+
+        $(function() {
+
+            var datascource = {
+            'name': 'Lao Lao',
+            'title': 'general manager',
+            'children': [
+                { 'name': 'Bo Miao', 'title': 'department manager', 'className': 'middle-level',
+                'children': [
+                    { 'name': 'Li Jing', 'title': 'senior engineer', 'className': 'product-dept' },
+                    { 'name': 'Li Xin', 'title': 'senior engineer', 'className': 'product-dept',
+                    'children': [
+                        { 'name': 'To To', 'title': 'engineer', 'className': 'pipeline1' },
+                        { 'name': 'Fei Fei', 'title': 'engineer', 'className': 'pipeline1' },
+                        { 'name': 'Xuan Xuan', 'title': 'engineer', 'className': 'pipeline1' }
+                    ]
+                    }
+                ]
+                },
+                { 'name': 'Su Miao', 'title': 'department manager', 'className': 'middle-level',
+                'children': [
+                    { 'name': 'Pang Pang', 'title': 'senior engineer', 'className': 'rd-dept' },
+                    { 'name': 'Hei Hei', 'title': 'senior engineer', 'className': 'rd-dept',
+                    'children': [
+                        { 'name': 'Xiang Xiang', 'title': 'UE engineer', 'className': 'frontend1' },
+                        { 'name': 'Dan Dan', 'title': 'engineer', 'className': 'frontend1' },
+                        { 'name': 'Zai Zai', 'title': 'engineer', 'className': 'frontend1' }
+                    ]
+                    }
+                ]
+                }
+            ]
+            };
+
+            var oc = $('#chart-container').orgchart({
+            'data' : datascource,
+            'nodeContent': 'title'
+            });
+
+        });
+
+        })(jQuery);
+    </script>
+</body>
+</html>
