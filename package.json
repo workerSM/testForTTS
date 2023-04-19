@@ -1,1 +1,15 @@
-{}
+{
+  "name": "my-project",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "main": "dist/main.js",
+  "dependencies": {
+    "chart.js": "^4.2.1"
+  },
+  "devDependencies": {
+    "parcel": "^2.8.3"
+  }
+}
