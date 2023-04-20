@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Chart.js example</title>
+    <style>
+      div{
+        width: 600px;
+        text-align: center;
+      }
+      div > h1{
+        background-color: skyblue;
+      }
+      canvas{
+        /* canvas는 반응형으로 움직이나 전체적인 크기 조정은 canvas를 감싸는 div로 조절하는게 편함 */
+      }
+    </style>
+    <!-- cdn으로 진행 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <!-- 공식문서 step by step guide 부분.. cube 설치도 안되고 cors 문제도 있고 npm자체의 chartjs도 안불러와져서 포기..! -->
+    <!-- <div style="width: 800px;"><canvas id="acquisitions"></canvas></div> -->
+    
+    <!-- cdn으로진행 -->
+    <!-- 참고 사이트: https://jineecode.tistory.com/191 -->
+    <div>
+        <h1>div 크기는 600px</h1>
+        <canvas id="myChart"></canvas>
+      </div>
+    <script type="module" src="js/graph_bar_ver4.js"></script>
+  </body>
+</html>

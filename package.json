@@ -1,11 +1,11 @@
 {
-  "name": "my-project",
-  "source": "src/index.html",
+  "name": "chartjs-example",
+  "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
-    "start": "parcel",
-    "build": "parcel build"
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
   },
-  "main": "dist/main.js",
   "dependencies": {
     "chart.js": "^4.2.1"
   },
