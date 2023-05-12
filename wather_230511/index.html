@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .result-box{
+            width: 500px;
+            height: 500px;
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="showResult();">클릭</button>
+
+    <hr>
+    <div class="result-box" id="resultBoxId"></div>
+
+    <script>
+        let resultBox = document.getElementsByClassName('result-box');
+        function showResult(){
+            var xhr = new XMLHttpRequest();
+            var url = 'http://apis.data.go.kr/1360000/NwpModelInfoService/getLdapsUnisArea'; /*URL*/
+            var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'I14kYMJNdlKyqQB9U4a3%2FV4z6HQcMa0rk8rpUUsxLIm2IH8ru0LKz6IZ%2F8uA0e8%2FQx%2B3a5jLa0IanaDgR9ZNeA%3D%3D'; /*Service Key*/
+            queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
+            queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
+            queryParams += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON'); /**/
+            queryParams += '&' + encodeURIComponent('baseTime') + '=' + encodeURIComponent('202305110300'); /**/
+            queryParams += '&' + encodeURIComponent('dongCode') + '=' + encodeURIComponent('1100000000'); /**/
+            queryParams += '&' + encodeURIComponent('dataTypeCd') + '=' + encodeURIComponent('Temp'); /**/
+            xhr.open('GET', url + queryParams);
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    // alert('Status: '+this.status+'nHeaders: '+JSON.stringify(this.getAllResponseHeaders())+'nBody: '+this.responseText)
+
+                    // alert(this.responseText)
+                    // 위 내용을 테이블로 간단히 표기
+                    // resultBox.insertAdjacentHTML =  'Status: '+this.status+'nHeaders: '+JSON.stringify(this.getAllResponseHeaders())+'nBody: '+this.responseText ;
+                   // document.write(this.responseText)
+
+
+                    let bringResult = this.responseText;
+                    let obj = JSON.parse(bringResult);
+
+                    console.log(obj.response.body.items.item[1].fcstTime) 
+
+                    document.getElementById('resultBoxId').innerHTML = `<p> ${obj.response.body.items.item[1].baseTime} 첫번째데이터입니다 </p>`;
+                    document.getElementById('resultBoxId').insertAdjacentHTML("afterbegin", `<p> ${obj.response.body.items.item[1].fcstTime} 두번째데이터입니다</p>`);
+                    document.getElementById('resultBoxId').insertAdjacentHTML("afterbegin", `<p> ${this.responseText} 세번째데이터입니다 </p>`);
+
+
+
+
+                    //아래는 안된것들
+
+                    // function createMenu(name){
+                    //     let pCover = document.createElement('p');
+                    //     pCover.textContent = name;
+                    //     return pCover;
+                    // }
+
+                    // resultBox.appendChild(createMenu(obj.response.body.items.item[1].fcstTime))
+           
+                }
+            };
+
+            xhr.send('');
+            
+        }
+        
+    </script>
+</body>
+</html>
