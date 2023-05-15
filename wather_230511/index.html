@@ -11,13 +11,31 @@
             height: 500px;
             border: 1px solid gray;
         }
+        table{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <button onclick="showResult();">클릭</button>
 
     <hr>
-    <div class="result-box" id="resultBoxId"></div>
+    <div class="result-box" id="resultBoxId">
+        <table>
+            <tr>
+                <td>주소</td>
+                <td>시간</td>
+                <td>위도/경도</td>
+                <td>온도</td>
+            </tr>
+            <tr>
+                <td>서울특별시</td>
+                <td id="getBaseTime"></td>
+                <td id="getLatLot"></td>
+                <td id="getTemp"></td>
+            </tr>
+        </table>
+    </div>
 
     <script>
         let resultBox = document.getElementsByClassName('result-box');
@@ -28,34 +46,42 @@
             queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
             queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
             queryParams += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON'); /**/
-            queryParams += '&' + encodeURIComponent('baseTime') + '=' + encodeURIComponent('202305110300'); /**/
+            queryParams += '&' + encodeURIComponent('baseTime') + '=' + encodeURIComponent('202305140300'); /**/
             queryParams += '&' + encodeURIComponent('dongCode') + '=' + encodeURIComponent('1100000000'); /**/
             queryParams += '&' + encodeURIComponent('dataTypeCd') + '=' + encodeURIComponent('Temp'); /**/
+            queryParams += '&' + encodeURIComponent('resultMsg') + '=' + encodeURIComponent('--'); /**/
             xhr.open('GET', url + queryParams);
             xhr.onreadystatechange = function () {
                 if (this.readyState == 4) {
+                    let bringResult = this.responseText;
+                    let obj = JSON.parse(bringResult);
+                    let answerPart1 = obj.response.body.items;
+                    
+                    console.log('start');
+                    console.log(obj.response.body.items.item[1].fcstTime) 
+
+                    // document.getElementById('resultBoxId').innerHTML = `<p> ${obj.response.body.items.item[1].lon} 첫번째데이터입니다 </p>`;    //x0, y0는 lat, lon으로 변경된듯함
+                    // document.getElementById('resultBoxId').insertAdjacentHTML("afterbegin", `<p> ${obj.response.body.items.item[1].value} 두번째데이터입니다</p>`);
+                    // document.getElementById('resultBoxId').insertAdjacentHTML("afterbegin", `<p> ${this.responseText} 세번째데이터입니다 </p>`);
+                    // document.getElementById('resultBoxId').insertAdjacentHTML("afterbegin", `<p> ${obj.response.header.resultMsg} 네번째데이터입니다 </p>`);
+                    // document.getElementById('resultBoxId').insertAdjacentHTML("afterbegin", `<p> ${answerPart1.item[1].unit} 다섯번째데이터입니다 </p>`);
+                    
+                    let getBaseTime = document.getElementById('getBaseTime');
+                    let getLatLot = document.getElementById('getLatLot');
+                    let getTemp = document.getElementById('getTemp');
+                    getBaseTime.insertAdjacentHTML("afterbegin", `${answerPart1.item[1].baseTime}`);
+                    getLatLot.insertAdjacentHTML("afterbegin", `${answerPart1.item[1].lat} / ${answerPart1.item[1].lon}`);
+                    getTemp.insertAdjacentHTML("afterbegin", `${answerPart1.item[1].value + answerPart1.item[1].unit}`);
+                    
+                    console.log('finish');
+
+                    //작동은 되는 것들
                     // alert('Status: '+this.status+'nHeaders: '+JSON.stringify(this.getAllResponseHeaders())+'nBody: '+this.responseText)
 
-                    // alert(this.responseText)
-                    // 위 내용을 테이블로 간단히 표기
-                    // resultBox.insertAdjacentHTML =  'Status: '+this.status+'nHeaders: '+JSON.stringify(this.getAllResponseHeaders())+'nBody: '+this.responseText ;
                    // document.write(this.responseText)
 
 
-                    let bringResult = this.responseText;
-                    let obj = JSON.parse(bringResult);
-
-                    console.log(obj.response.body.items.item[1].fcstTime) 
-
-                    document.getElementById('resultBoxId').innerHTML = `<p> ${obj.response.body.items.item[1].baseTime} 첫번째데이터입니다 </p>`;
-                    document.getElementById('resultBoxId').insertAdjacentHTML("afterbegin", `<p> ${obj.response.body.items.item[1].fcstTime} 두번째데이터입니다</p>`);
-                    document.getElementById('resultBoxId').insertAdjacentHTML("afterbegin", `<p> ${this.responseText} 세번째데이터입니다 </p>`);
-
-
-
-
                     //아래는 안된것들
-
                     // function createMenu(name){
                     //     let pCover = document.createElement('p');
                     //     pCover.textContent = name;
