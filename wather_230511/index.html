@@ -15,6 +15,7 @@
             text-align: center;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
 <body>
     <button onclick="showResult();">클릭</button>
@@ -36,6 +37,8 @@
             </tr>
         </table>
     </div>
+    <input type="file" onchange="readExcel()">
+
 
     <script>
         let resultBox = document.getElementsByClassName('result-box');
@@ -98,5 +101,116 @@
         }
         
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.5/xlsx.full.min.js"></script>
+    <!-- <script>
+        function readExcel() {
+            let input = event.target;
+            let reader = new FileReader();
+            reader.onload = function () {
+                let data = reader.result;
+                let workBook = XLSX.read(data, { type: 'binary' });
+                workBook.SheetNames.forEach(function (sheetName) {
+                    // console.log('SheetName: ' + sheetName);
+                    let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
+                    console.log(JSON.stringify(rows));
+                })
+            };
+            reader.readAsBinaryString(input.files[0]);
+        }
+    </script> -->
+     <script>
+        // https://eblo.tistory.com/83 참고
+        function excelExport(event){
+            excelExportCommon(event, handleExcelDataAll);
+        }
+        function excelExportCommon(event, callback) {
+            let input = event.target;
+            let reader = new FileReader();
+            reader.onload = function () {
+                var fileData = reader.result;
+                var wb = XLSX.read(fileData, { type: 'binary' });
+                var sheetNameList = wb.SheetNames;  //시트 이름 목록 가져오기
+                var firstSheetName = sheetNameList[0]   //첫번째 시트명
+                var firstSheet = wb.Sheets[firstSheetName]; //첫번째 시트
+                callback(firstSheet);
+                
+            };
+            reader.readAsBinaryString(input.files[0]);
+        }
+        function handleExcelDataAll(sheet){
+            handleExcelDataHeader(sheet);   //header정보
+            handleExcelDataJson(sheet); //json형태
+            handleExcelDataCsv(sheet);  //csv형태
+            handleExcelDataHtml(sheet); //html 형태
+
+            handleExcelDataDongCode(sheet)
+        }
+        function handleExcelDataHeader(sheet){
+            var headers = get_header_row(sheet);
+            $("#displayHeaders").html(JSON.stringify(headers));
+        }
+        function handleExcelDataJson(sheet){
+            $("#displayExcelJson").html(JSON.stringify(XLSX.utils.sheet_to_json(sheet)));
+        }
+        function handleExcelDataCsv(sheet){
+            $("#displayExcelCsv").html(XLSX.utils.sheet_to_csv(sheet));
+        }
+        function handleExcelDataHtml(sheet){
+            $("#displayExcelHtml").html(XLSX.utils.sheet_to_html(sheet));
+        }
+
+        function handleExcelDataDongCode(sheet){
+            let dongCode = get_dongCode_col(sheet);
+            $("#displayDongCode").html(JSON.stringify(dongCode));
+            // $("#displayDongCode").html(XLSX.utils.sheet_to_html(sheet));
+            // $("#displayDongCode").html(XLSX.utils.encode_cell("B3"))
+
+
+            //안댐
+            //$("#displayDongCode").html(XLSX.utils.sheet_to_html(sheet).encode_cell("B3"))
+        }
+
+        function get_header_row(sheet){
+            var headers=[];
+            var range = XLSX.utils.decode_range(sheet['!ref']);
+            console.log(range)
+            var C, R = range.s.r; //start in the first row
+            // walk every column in the range
+            for(C = range.s.c; C <=range.e.c; ++C){
+                var cell = sheet[XLSX.utils.encode_cell({c: C, r: R})]  //find the cell in the first row]
+                var hdr = "UNKNOWN" + C;    //replace with your desifred default
+                if(cell && cell.t) hdr = XLSX.utils.format_cell(cell);
+                headers.push(hdr);
+            }
+            return headers;
+        }
+
+        function get_dongCode_col(sheet){
+            let dongCodeList = [];
+            let range1 = XLSX.utils.decode_range(sheet['!ref']);
+            let C1, R1 = range1.s.r;
+            for(R1 = range1.s.r; R1 < range1.e.r; ++R1){
+                let cell1 = sheet[XLSX.utils.encode_cell({c: range1.s.r +1 , r: R1 + 1})]
+
+                let hdr1 = 'UNKNOWN' + R1;
+                if(cell1 && cell1.v) hdr1 = XLSX.utils.format_cell(cell1);
+                dongCodeList.push(hdr1);
+            }  
+            return dongCodeList;
+        }
+        
+    </script>
+    <hr>
+    파일 선택 : <input type="file" id="excelFile" onchange="excelExport(event)"/>
+    <h1>Header 정보 보기</h1>
+    <div id="displayHeaders"></div>
+    <!-- <h1>JSON 형태로 보기</h1>
+    <div id="displayExcelJson"></div> -->
+    <!-- <h1>CSV 형태로 보기</h1>
+    <div id="displayExcelCsv"></div> -->
+    <h1>행정구역코드만 뽑아내기</h1>
+    <div id="displayDongCode"></div>
+    <h1>HTML 형태로 보기</h1>
+    <div id="displayExcelHtml"></div>
 </body>
 </html>
