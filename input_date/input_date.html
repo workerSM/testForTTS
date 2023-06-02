@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>input date태그로 달력선택</title> 
+    <link rel="stylesheet" href="input_date.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- 참고사이트 : https://recoderr.tistory.com/56 -->
+    <!-- jquery로 select box 조절방법도 잇음 -->
+    <select name="condition" id="calendar" onchange="onChangeCal(event)">
+        <option value="year">연도별</option>
+        <option value="month" selected>월별</option>
+        <option value="week">주별</option>
+        <option value="day">일별</option>
+      </select>
+      <br/><br/>
+      <div>
+      <span id ="cal">
+        <input type="month" class="input_type" id="startDate" onChange="startValidity(event)"> 
+        <span class="hypen"> ~ </span> <input id="endDate" type="month" class="input_type" onChange="endValidity(event)">
+      </span>
+      </div>
+      <script src="input_date.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+select {
+    width: 100px;
+    height: 38px;
+    padding: 0 8px;
+    font-size: 15px;
+    box-shadow: rgb(150 150 150 / 24%) 0px 3px 8px;
+}
+
+input {
+    width: 150px;
+    height: 38px;
+    font-size: 15px;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: 97% 50%;
+    box-shadow: rgb(150 150 150 / 24%) 0px 3px 8px;
+    padding: 0 8px;
+}
+
+select, input {
+    border: none;
+    outline: 0;
+}

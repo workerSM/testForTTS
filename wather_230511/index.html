@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        hr{
+            margin: 30px 0;
+        }
         .result-box{
             width: 500px;
-            height: 500px;
+            height: 100px;
             border: 1px solid gray;
         }
         table{
@@ -19,8 +22,6 @@
 </head>
 <body>
     <button onclick="showResult();">클릭</button>
-
-    <hr>
     <div class="result-box" id="resultBoxId">
         <table>
             <tr>
@@ -37,10 +38,8 @@
             </tr>
         </table>
     </div>
-    <input type="file" onchange="readExcel()">
-
-
     <script>
+        //api에서 데이터불러오는 방법
         let resultBox = document.getElementsByClassName('result-box');
         function showResult(){
             var xhr = new XMLHttpRequest();
@@ -49,8 +48,8 @@
             queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
             queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
             queryParams += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON'); /**/
-            queryParams += '&' + encodeURIComponent('baseTime') + '=' + encodeURIComponent('202305140300'); /**/
-            queryParams += '&' + encodeURIComponent('dongCode') + '=' + encodeURIComponent('1100000000'); /**/
+            queryParams += '&' + encodeURIComponent('baseTime') + '=' + encodeURIComponent('202305180300'); /**/
+            queryParams += '&' + encodeURIComponent('dongCode') + '=' + encodeURIComponent(dongCodeFromExcel); /**/
             queryParams += '&' + encodeURIComponent('dataTypeCd') + '=' + encodeURIComponent('Temp'); /**/
             queryParams += '&' + encodeURIComponent('resultMsg') + '=' + encodeURIComponent('--'); /**/
             xhr.open('GET', url + queryParams);
@@ -62,7 +61,6 @@
                     
                     console.log('start');
                     console.log(obj.response.body.items.item[1].fcstTime) 
-
                     // document.getElementById('resultBoxId').innerHTML = `<p> ${obj.response.body.items.item[1].lon} 첫번째데이터입니다 </p>`;    //x0, y0는 lat, lon으로 변경된듯함
                     // document.getElementById('resultBoxId').insertAdjacentHTML("afterbegin", `<p> ${obj.response.body.items.item[1].value} 두번째데이터입니다</p>`);
                     // document.getElementById('resultBoxId').insertAdjacentHTML("afterbegin", `<p> ${this.responseText} 세번째데이터입니다 </p>`);
@@ -80,8 +78,7 @@
 
                     //작동은 되는 것들
                     // alert('Status: '+this.status+'nHeaders: '+JSON.stringify(this.getAllResponseHeaders())+'nBody: '+this.responseText)
-
-                   // document.write(this.responseText)
+                    // document.write(this.responseText)
 
 
                     //아래는 안된것들
@@ -90,19 +87,19 @@
                     //     pCover.textContent = name;
                     //     return pCover;
                     // }
-
                     // resultBox.appendChild(createMenu(obj.response.body.items.item[1].fcstTime))
-           
                 }
             };
-
             xhr.send('');
-            
         }
-        
     </script>
+
+    <hr>
+    <input type="file" onchange="readExcel()">
+    <!-- sheet js cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.5/xlsx.full.min.js"></script>
-    <!-- <script>
+    <script>
+        //http://www.gisdeveloper.co.kr/?p=8987 
         function readExcel() {
             let input = event.target;
             let reader = new FileReader();
@@ -117,14 +114,29 @@
             };
             reader.readAsBinaryString(input.files[0]);
         }
-    </script> -->
+    </script>
+
+    <hr>
+    파일 선택 : <input type="file" id="excelFile" onchange="excelExport(event)"/>
+    <h1>Header 정보 보기</h1>
+    <div id="displayHeaders"></div>
+    <!-- <h1>JSON 형태로 보기</h1>
+    <div id="displayExcelJson"></div> -->
+    <!-- <h1>CSV 형태로 보기</h1>
+    <div id="displayExcelCsv"></div> -->
+    <h1>행정구역코드만 뽑아내기</h1>
+    <div id="displayDongCode"></div>
+    <h1>HTML 형태로 보기</h1>
+    <div id="displayExcelHtml"></div>
      <script>
         // https://eblo.tistory.com/83 참고
         function excelExport(event){
             excelExportCommon(event, handleExcelDataAll);
+            console.log(event)
+            console.log(' what is')
         }
         function excelExportCommon(event, callback) {
-            let input = event.target;
+            let input = event.target;       //event가 일어날 객체를 의미. 버튼눌러 새창이 발생할 경우 버튼이 이벤트 타겟임.
             let reader = new FileReader();
             reader.onload = function () {
                 var fileData = reader.result;
@@ -133,7 +145,6 @@
                 var firstSheetName = sheetNameList[0]   //첫번째 시트명
                 var firstSheet = wb.Sheets[firstSheetName]; //첫번째 시트
                 callback(firstSheet);
-                
             };
             reader.readAsBinaryString(input.files[0]);
         }
@@ -185,32 +196,34 @@
             return headers;
         }
 
-        function get_dongCode_col(sheet){
+        function get_dongCode_col_test(sheet){
             let dongCodeList = [];
             let range1 = XLSX.utils.decode_range(sheet['!ref']);
             let C1, R1 = range1.s.r;
             for(R1 = range1.s.r; R1 < range1.e.r; ++R1){
                 let cell1 = sheet[XLSX.utils.encode_cell({c: range1.s.r +1 , r: R1 + 1})]
-
                 let hdr1 = 'UNKNOWN' + R1;
                 if(cell1 && cell1.v) hdr1 = XLSX.utils.format_cell(cell1);
                 dongCodeList.push(hdr1);
             }  
             return dongCodeList;
         }
-        
+        function get_dongCode_col(sheet){
+            let dongCodeList;
+            let range1 = XLSX.utils.decode_range(sheet['!ref']);
+            let C1, R1 = range1.s.r;
+            for(R1 = range1.s.r; R1 < range1.e.r; ++R1){
+                let cell1 = sheet[XLSX.utils.encode_cell({c: range1.s.r +1 , r: R1 + 1})]
+                let hdr1 = 'UNKNOWN' + R1;
+                if(cell1 && cell1.v) hdr1 = XLSX.utils.format_cell(cell1);
+                dongCodeList.push(hdr1);
+            }  
+            return dongCodeList;
+        }
+
+        let dongCodeFromExcel = '1100000000';
+
     </script>
-    <hr>
-    파일 선택 : <input type="file" id="excelFile" onchange="excelExport(event)"/>
-    <h1>Header 정보 보기</h1>
-    <div id="displayHeaders"></div>
-    <!-- <h1>JSON 형태로 보기</h1>
-    <div id="displayExcelJson"></div> -->
-    <!-- <h1>CSV 형태로 보기</h1>
-    <div id="displayExcelCsv"></div> -->
-    <h1>행정구역코드만 뽑아내기</h1>
-    <div id="displayDongCode"></div>
-    <h1>HTML 형태로 보기</h1>
-    <div id="displayExcelHtml"></div>
+    
 </body>
 </html>
