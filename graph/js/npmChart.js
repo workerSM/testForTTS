@@ -1,4 +1,4 @@
-import Chart from '~/chart.js'
+import Chart from '~/node_modules/chart.js/dist/Chart.bundle.min.js'
 
 (async function() {
   const data = [
