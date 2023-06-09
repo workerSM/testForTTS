@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chart js 시작하기</title>
+</head>
+<body>
+    <!-- 해당내용은 chart js 시작 문서에 기반한 내용 -->
+    <!-- https://www.chartjs.org/docs/latest/getting-started/ -->
+    <div>
+        <!-- chart js가 적용되는 부분 -->
+        <canvas id="myChart"></canvas>
+        <!-- chart tag는 js를 이용하여 그래프를 그린다. canvas tag자체는 투명하기때문에 script을 통해 그래프를 그리지 않으면 보이지 않는다. 만약 canvas tag 내에 텍스트를 작성하고 보인다면 js가 불활성되어있거나 브라우저 자체에서 canvas tag가 지원되지 않는경우이다. 결론! canvas는 js가 필수다! -->
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+    const ctx = document.getElementById('myChart');
+    //ctx는 context의 줄임말. 캔버스에 그림을 그리려면 getContext 메소드를 호출해서 캔버스에 사용해야하지만 우리는 canvas와 관련된 메소드를 이용하는 것이 아니라 chart js를 이용하므로 canvas와 chart js가 적용에 필요한 연결고리만 만들어준다.
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], // 가로줄 그래프별 
+            datasets: [{
+                label: '# of Votes',    //범례
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true   //최솟값을 0으로 시작할지
+                }
+            }
+        }
+    });
+    </script>
+</body>
+</html>
