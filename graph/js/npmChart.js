@@ -28,3 +28,5 @@ import {Chart} from '/node-modules/chart.js/dist/chart.js';
   );
   console.log('hihi')
 })();
+
+//안되서 중단
