@@ -7,7 +7,7 @@
     "build": "parcel build src/index.html"
   },
   "dependencies": {
-    "chart.js": "^4.2.1"
+    "chart.js": "^4.3.0"
   },
   "devDependencies": {
     "parcel": "^2.8.3"
