@@ -1,4 +1,4 @@
-import {Chart} from '/chart.js/auto'
+import {Chart} from '/chart.js/dist/chart.js';
 
 (async function() {
   const data = [
@@ -26,4 +26,5 @@ import {Chart} from '/chart.js/auto'
       }
     }
   );
+  console.log('hihi')
 })();
