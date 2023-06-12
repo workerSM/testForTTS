@@ -1,4 +1,4 @@
-import Chart from '/node_modules/chart.js'
+import {Chart} from '/node_modules/chart.js'
 
 (async function() {
   const data = [
