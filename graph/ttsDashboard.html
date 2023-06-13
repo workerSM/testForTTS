@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>금일통계</title>
+    <link rel="stylesheet" href="css/common_admin.css">
+    <link rel="stylesheet" href="css/ttsDashboard.css">
+    <!-- chart js cdn으로 진행 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <main>
+        <div class="conts">
+            <div class="top-parts">
+                <div>
+                    <p class="cate-name">통계
+                        <!-- <span class="info" onclick="window.open('../info/day-summary-info.html')">?</span> -->
+                    </p>
+                </div>            
+            </div>
+            <div class="mid-parts">
+                <article class="daily-chart-frame">
+                    <div class="chart-area">
+                        <h2>일일통계<input type="date" class="calendar"></h2>
+                        <div class="chart-part">
+                            <!-- 그래프 -->
+                            <canvas id="myChartDaily"></canvas>
+                        </div>
+                    </div>
+                    <div class="option-area-daily" onchange="makeChartDaily();">
+                        <section>
+                            <p>
+                                <label>
+                                    <input class="option-fall" type="radio" name="options-daily" value="opt-daily-fall" checked>
+                                    낙상알림 총 횟수
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="option-nomove" type="radio" name="options-daily" value="opt-daily-nomove">
+                                    움직임없음 알림 총 횟수
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="option-temp" type="radio" name="options-daily" value="opt-daily-temp">
+                                    기온 총 횟수
+                                </label>
+                            </p>
+                            <p> 
+                                <label>
+                                    <input class="option-walk" type="radio" name="options-daily" value="opt-daily-walk">
+                                    운동량(치저/평균/최고)
+                                </label>
+                            </p>
+                            <button type="button" onclick="window.open('dashboard_daily.html', '금일통계리스트','width=800px, height=800px')">전체보기</button>
+                        </section>
+                    </div>
+                </article>
+                <article class="weekly-chart-frame">
+                    <div class="chart-area">
+                        <h2>주간통계<input type="date" class="calendar"></h2>
+                        <div class="chart-part">
+                            <!-- 그래프 -->
+                            <canvas id="myChartWeekly"></canvas>
+                        </div>
+                    </div>
+                    <div class="option-area-weekly" onchange="makeChartWeekly();">
+                        <section>
+                            <p>
+                                <label>
+                                    <input class="option-fall" type="radio" name="options-weekly" checked value="opt-weekly-fall">
+                                    낙상알림 총 횟수
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="option-nomove" type="radio" name="options-weekly" value="opt-weekly-nomove">
+                                    움직임없음 알림 총 횟수
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="option-temp" type="radio" name="options-weekly" value="opt-weekly-temp">
+                                    기온 총 횟수
+                                </label>
+                            </p>
+                            <p> 
+                                <label>
+                                    <input class="option-walk" type="radio" name="options-weekly" value="opt-weekly-walk">
+                                    운동량(치저/평균/최고)
+                                </label>
+                            </p>
+                            <button type="button" onclick="window.open('dashboard_weekly.html', '주간통계리스트','width=800px, height=800px')">전체보기</button>
+                        </section>
+                    </div>
+                </article>
+                <article class="monthly-chart-frame">
+                    <div class="chart-area">
+                        <h2>월 통계<input type="date" class="calendar"></h2>
+                        <div class="chart-part">
+                            <!-- 그래프 -->
+                            <canvas id="myChartMonthly"></canvas>
+                        </div>
+                    </div>
+                    <div class="option-area-monthly" onchange="makeChartMonthly();">
+                        <section>
+                            <p>
+                                <label>
+                                    <input class="option-fall" type="radio" name="options-monthly" checked value="opt-monthly-fall">
+                                    낙상알림 총 횟수
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="option-nomove" type="radio" name="options-monthly" value="opt-monthly-nomove">
+                                    움직임없음 알림 총 횟수
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="option-temp" type="radio" name="options-monthly" value="opt-monthly-temp">
+                                    기온 총 횟수
+                                </label>
+                            </p>
+                            <p> 
+                                <label>
+                                    <input class="option-walk" type="radio" name="options-monthly" value="opt-monthly-walk">
+                                    운동량(치저/평균/최고)
+                                </label>
+                            </p>
+                            <button type="button" onclick="window.open('dashboard_monthly.html', '월통계리스트','width=800px, height=800px')">전체보기</button>
+                        </section>
+                    </div>
+                </article>
+            </div>
+            <!-- <div class="statics flex-set">
+                <div class="statics-part">
+                    <div class="circle-title"> 
+                        <picture>
+                            <source srcset="images_admin/fall_dark.png" media="(prefers-color-scheme:dark)">
+                            <img src="images_admin/fall.png" alt="낙상주의 아이콘">
+                        </picture>
+                        <span>낙상주의</span>
+                    </div>
+                    <div class="circle">
+                        <div></div>
+                        <div>
+                            <p>발생건수</p>
+                            <p>10 건</p>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="statics-part">
+                    <div class="circle-title">
+                        <picture>
+                            <source srcset="images_admin/temp_dark.png" media="(prefers-color-scheme:dark)">
+                            <img src="images_admin/temp.png" alt="활동기온 아이콘">
+                        </picture>
+                        <span>활동기온</span>
+                    </div>
+                    <div class="circle">
+                        <div></div>
+                        <div>
+                            <p>주의 <span>5 회</span></p>
+                            <p>위험 <span>3 회</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="statics-part">
+                    <div class="circle-title">
+                        <picture>
+                            <source srcset="images_admin/walking_dark.png" media="(prefers-color-scheme:dark)">
+                            <img src="images_admin/walking.png" alt="운동량 아이콘">
+                        </picture>
+                        <span>운동량</span>
+                    </div>
+                    <div class="circle">
+                        <div></div>
+                        <div>
+                            <p>평균</p>
+                            <p>3040 보</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="statics-part">
+                    <div class="circle-title"> 
+                        <picture>
+                            <source srcset="images_admin/battery_dark.png" media="(prefers-color-scheme:dark)">
+                            <img src="images_admin/battery.png" alt="배터리 상태 아이콘">
+                        </picture>
+                        <span>배터리 상태</span>
+                    </div>
+                    <div class="circle">
+                        <div></div>
+                        <div>
+                            <p>평균</p>
+                            <p>3단계</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="statics-part">
+                    <div class="circle-title">
+                        <picture>
+                            <source srcset="images_admin/bluetooth_dark.png" media="(prefers-color-scheme:dark)">
+                            <img src="images_admin/bluetooth.png" alt="블루투스">
+                        </picture> 
+                        <span>블루투스</span>
+                    </div>
+                    <div class="circle">
+                        <div></div>
+                        <div>
+                            <p>작동중 <span>50 기</span></p>
+                            <p>비작동 <span>20 기</span></p>
+                            <p>기타 <span>5 기</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </main>
+    <footer>
+        우)48795 부산광역시 동구 고관로 29-1 2층(사람을보호하는기업) │ TEL. 051-311-2907 │ FAX. 051-898-2907 │ ppshome.co.kr │ Copyright 2022. in4s. All rights reserved.
+    </footer>
+    <script src="js/ttsDashboard.js"></script>
+</body>
+</html>

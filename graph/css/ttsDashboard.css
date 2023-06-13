@@ -1,0 +1,65 @@
+@charset "utf-8";
+.calendar{
+    border: 0;
+    border-bottom: 3px solid var(--main-color-1);
+    background-color: rgb(239, 239, 239);
+    padding: 3px 3px 0 3px;
+}
+.mid-parts{
+    width: 100%;
+    padding: 0 30px;
+}
+article{
+    width: 100%;
+    border: 1px solid gray;
+    margin-bottom: 30px;
+    display: flex;
+    background-color: white;
+}
+article .chart-area{
+    width: 70%;
+    padding: 20px;
+    text-align: center;
+}
+article .chart-area h2{
+    margin-bottom: 20px;
+    position: relative;
+}
+article .chart-area input[type="date"]{
+    margin-left: 10px;
+    transform: translateY(-3px);
+    position: absolute;
+    right: 0px;
+}
+article div[class^="option-area-"]{
+    width: 30%;
+    padding: 20px;
+    border-left: 1px double gray;
+}
+article div[class^="option-area-"] p{
+    margin: 5px 0;
+}
+article div[class^="option-area-"] button{
+    width: 100%;
+}
+
+@media screen and (max-width: 500px){
+  
+}
+
+/* IE 10+ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+
+}
+
+@media (prefers-color-scheme:dark){ 
+    .statics-part > div.circle > div:nth-child(1){
+        background: radial-gradient(farthest-side at 15% 15%,var(--main-color-2),var(--main-color-5));
+    }
+    .statics-part > div.circle > div:nth-child(2){
+        color: var(--main-color-1);
+    }
+    .filt-cate p.cate-name{
+        background-color: white;
+    }
+}
