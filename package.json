@@ -1,6 +1,7 @@
 {
   "name": "chartjs-example",
   "version": "1.0.0",
+  "type": "module",
   "license": "MIT",
   "scripts": {
     "dev": "parcel src/index.html",
