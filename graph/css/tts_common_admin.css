@@ -1,0 +1,378 @@
+@charset "utf-8";
+@font-face{
+    font-family: 'Noto Sans KR','sans-serif';
+    src: url(https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap);
+}
+@font-face{
+    font-family: 'Score-3';
+    src: url(../admin_font/SCDream3.otf);
+}
+@font-face{
+    font-family: 'Score-7';
+    src: url(../admin_font/SCDream7.otf);
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Score-3','Noto Sans KR','sans-serif';
+}
+:root{
+    font-size: 16px;
+    --main-color-1: rgb(19,69,113);
+    --main-color-2: rgb(91,121,186);
+    --main-color-3: rgb(68,97,150);
+    --main-color-4: rgb(180,197,235);
+    --main-color-5: rgb(227,231,239);
+    --color-warn: #ff4b4b;
+    --color-caut: #ffd036;
+    --color-norm: #42ad08;
+}
+html{
+    width: 100%;
+    height: 100%;
+}
+body{
+    width: 100%;
+    height: auto;
+}
+a{
+    text-decoration: none;
+}
+a:link{
+    color: var(--main-color-3);
+}
+a:visited{
+    color: var(--main-color-3);
+}
+li{
+    list-style: none;
+}
+textarea{
+    padding: 10px;
+    resize: none;
+}
+.cate-name{
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--main-color-1);
+}
+.cate-sub-name{
+    font-size: 1.5rem;
+}
+.s-title{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+input:focus{
+    outline: none;
+}
+.flex-set{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flex-del{
+    display: block;
+}
+.flex-only{
+    display: flex;
+}
+.w-100{
+    width: 100%;
+}
+button{
+    background-color: var(--main-color-4);
+    color: var(--main-color-3);
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+button:hover{
+    color: var(--main-color-4);
+    background-color: var(--main-color-3);
+}
+
+.filt-numb{
+    text-decoration: underline;
+    text-align: right;
+    cursor: pointer;
+}
+.filt-numb:hover{
+    color: var(--color-caut);
+}
+.fs-30{
+    font-size: 30px;
+}
+span[class^="cir"]{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transform: translate(0, 4px);
+    margin-right: 5px;
+}
+.cir-fall{
+    background: var(--color-warn) url(../images_admin/cir-fall.png) no-repeat center / cover;
+}
+.cir-temp{
+    background: skyblue url(../images_admin/cir-temp.png) no-repeat center / cover;
+}
+.cir-move{
+    background: black url(../images_admin/cir-move.png) no-repeat center / cover;
+    border: 0.5px solid white;
+}
+.cir-battery{
+    background: var(--color-caut) url(../images_admin/cir-battery.png) no-repeat center / cover;
+}
+.cir-all-good{
+    background: var(--color-norm) url(../images_admin/cir-all-good.png) no-repeat center / cover;
+}
+.cir-off{
+    background: white url(../images_admin/cir-off.png) no-repeat center / cover;
+    border: 0.5px solid black;
+}
+
+/* -------------페이징------------- */
+.pagination{
+    margin-top: 20px;
+}
+.pg-pre{
+    margin-right: 30px;
+    cursor: pointer;
+    padding: 0 5px;
+}
+.pg-num > p{
+    margin: 0 3px 0;
+    padding: 0 3px 0;
+    cursor: pointer;
+}
+.pg-num > p:hover, .pg-pre:hover, .pg-nxt:hover{
+    background-color: var(--main-color-2);
+    border-radius: 5px;
+}
+.pg-now{
+    font-weight: bold;
+}
+.pg-nxt{
+    margin-left: 30px;
+    cursor: pointer;
+    padding: 0 5px;
+}
+/* -------------검색영역------------- */
+.search-area{
+    margin-top: 20px;
+}
+.search-area input{
+    margin-right: 10px;
+}
+
+/* -------------메인영역------------- */
+main{
+    display: flex;
+    width: 100%;
+    background-color: rgba(255,255,255,0.5);
+    background: linear-gradient(180deg, 
+      white 50%,
+        var(--main-color-2) 200%);
+    background-repeat: no-repeat;
+}
+/* -------------메인-컨텐츠영역------------- */
+.conts{
+    width: 100%;
+    position: relative;
+    padding: 20px 30px 10px;
+}
+/* ----------------top-parts---------------- */
+.top-parts{
+    width: 100%;
+    margin-bottom: 30px;
+}
+.top-parts > div:nth-child(1) > p.cate-name > span.info{
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 3px 12px;
+    background-color: var(--main-color-4);
+    border-radius: 50%;
+    margin: 0 10px 0;
+    display: inline-block;
+    transform: translateY(-4px);
+    color: white;
+}
+.top-parts > div:nth-child(1) > p > span.info:hover{
+    box-shadow: 2px 2px 1px gray;
+}
+
+footer{
+    bottom: 0px;
+    font-size: 10px;
+    text-align: center;
+    padding:10px 0 15px;
+    background:linear-gradient(to top, var(--main-color-1), var(--main-color-2));
+    color: var(--main-color-4);
+}
+
+input:read-only{
+    background-color: #d0d0d0;
+}
+
+input[type='search']{
+    padding: 3px;
+    width: 200px;
+    border: none;
+    border-bottom: 2px solid var(--main-color-1);
+}
+
+
+
+/* IE 10+ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    a:link{
+        color: rgb(68,97,150);
+    }
+    a:visited{
+        color: rgb(68,97,150);
+    }
+    button{
+        background-color: rgb(180,197,235);
+        color: rgb(68,97,150);
+    }
+    button:hover{
+        color: rgb(180,197,235);
+        background-color: rgb(68,97,150);
+    }
+    .popup-wrap{
+        border: 2px solid rgb(180,197,235);
+    }
+    header{
+        border-bottom: 2px solid rgb(180,197,235);
+    }
+    .hi-ment{
+        width: 80%;
+        color: rgb(227,231,239);
+    }
+    .icons{
+        width: 15%;
+        position: absolute;
+        right: 0px;
+    }
+    .icons > div:hover{
+        background-color: rgb(91,121,186);
+    }
+    .icons > div > p{
+        color: rgb(19,69,113);
+        width: 45px;
+    }
+    nav{
+        width: auto;
+    }
+    nav li{
+        border: 1px solid rgb(180,197,235);
+    }
+    .cate-name{
+        color: rgb(19,69,113);
+    }
+    main{
+        display: flex;
+        width: 100%;
+        min-height: 500px;
+        background-color: rgba(255,255,255,0.5);
+        background: linear-gradient(180deg, 
+          white 50%,
+            rgb(91,121,186) 200%);
+        background-repeat: no-repeat;
+    }
+    .top-parts > div:nth-child(1) > p.cate-name > span.info{
+        background-color: rgb(180,197,235);
+    }
+    .user-info-lng > div:nth-child(2) section.u-basic-info input{
+        max-width: 190px;
+    }
+    .user-info-lng > div:nth-child(2) section.u-basic-info ul{
+        justify-content: space-around;
+    }
+    .user-info-lng > div:nth-child(2) section.u-basic-info > div:nth-child(3){
+        justify-content: space-around;
+    }
+    .user-info-lng > div:nth-child(2) section.u-msg-info{
+        justify-content: space-around;
+    }
+    .pg-num > p:hover, .pg-pre:hover, .pg-nxt:hover{
+        background-color: rgb(91,121,186);
+    }
+    
+    footer{
+        background:linear-gradient(to top, rgb(19,69,113), rgb(91,121,186));
+        color: rgb(180, 197, 235);
+    }
+
+}
+
+
+
+/* 다크모드 */
+@media (prefers-color-scheme:dark){
+    body{
+        background-color: black;
+    }
+    :root{
+        font-size: 16px;
+        --main-color-1: rgb(227,231,239);
+        --main-color-2: rgb(180,197,235);
+        --main-color-3: rgb(68,97,150);
+        --main-color-4: rgb(91,121,186);
+        --main-color-5: rgb(19,69,113);
+        --color-warn: #dd2121;
+        --color-caut: #e9a402;
+        --color-norm: #389b03;
+        color: var(--main-color-1);
+    }
+    main{
+        background: none;
+        background-color: rgba(255,255,255,0.1);
+    }
+    button{
+        color: var(--main-color-1);
+    }
+    button:hover{
+        color: var(--main-color-1);
+    }
+    .hi-ment{
+        color: var(--main-color-1);
+    }
+    .icons > div:hover{
+        background-color: var(--main-color-4);
+    }
+    .pg-num > p:hover, .pg-pre:hover, .pg-nxt:hover{
+        background-color: var(--main-color-4);
+    }
+
+    @media screen and (max-width: 1439px){
+        nav li:hover{
+            background-color: white;
+        }
+        nav li:hover .sub-nav a:hover{
+            color: var(--main-color-5);
+        }
+    }
+
+    @media screen and (max-width: 360px){ 
+        :root{
+            font-size: 14px;
+        }
+        .cate-name{
+            font-size: 28px;
+        }
+    }
+}
+
+@media  screen and (max-width: 500px){
+    :root{
+        font-size: small;
+    }
+
+}
