@@ -324,11 +324,11 @@ function makeChartMonthly(){
         console.log('fall')
         chartType = 'line';
         chartLabel = '낙상';
-        chartData = [12,5,6,6,21,5,13];
+        chartData = [12,5,6,10];
         chartLabels = '낙상알림 총 횟수';
         
         dataMonthly = {
-            labels: ['월','화','수','목','금','토','일'],
+            labels: ['1주','2주','3주','4주'],
             datasets: [{
                 label: chartLabel,
                 data: chartData,
@@ -373,11 +373,11 @@ function makeChartMonthly(){
         console.log('nomove')
         chartType = 'line';
         chartLabel = '움직임없음';
-        chartData = [10,9,8,7,6,5,10];  
+        chartData = [10,9,8,7];  
         chartLabels = '움직임없음 총 횟수';
 
         dataMonthly = {
-            labels: ['월','화','수','목','금','토','일'],
+            labels: ['1주','2주','3주','4주'],
             datasets: [{
                 label: chartLabel,
                 data: chartData,
@@ -422,15 +422,15 @@ function makeChartMonthly(){
         console.log('temp')
         chartType = 'bar';
         dataMonthly = {
-            labels: ['월','화','수','목','금','토','일'],
+            labels: ['1주','2주','3주','4주'],
             datasets: [
                 {
                     label: '최저온도',
-                    data: [15,18,11,12,10,20,18]
+                    data: [15,18,11,12]
                 },
                 {
                     label: '최고온도',
-                    data: [18,18,15,16,15,22,20]
+                    data: [18,18,15,16]
                 },
             ],
         }
@@ -438,15 +438,15 @@ function makeChartMonthly(){
     }else if(selectOpt.value == "opt-monthly-walk"){
         chartType = 'bar';
         dataMonthly = {
-            labels: ['월','화','수','목','금','토','일'],
+            labels: ['1주','2주','3주','4주'],
             datasets: [
                 {
                     label: '최소운동량',
-                    data: [15,18,11,12,10,20,18]
+                    data: [15,18,11,12]
                 },
                 {
                     label: '최대운동량',
-                    data: [18,18,15,16,15,22,20]
+                    data: [18,18,15,16]
                 },
             ],
         }
