@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>hihihi</h1>
+    <script>
+        let delayColorChange = (newColor, delay) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    document.body.style.backgroundColor = newColor;
+                    resolve();
+                }, delay)
+            })
+        }
+
+        async function rainbow() {
+            await delayColorChange('red',1000);
+            await delayColorChange('orange',1000);
+        }
+        rainbow().then(() => console.log('end of rainbow'))
+    </script>
+</body>
+</html>
